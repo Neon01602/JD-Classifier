@@ -1,0 +1,62 @@
+# Redrob Hackathon — Submission Metadata
+# Fill in team/contact details and the sandbox/repo links before submitting.
+
+team_name: "your-team-name-here"
+
+primary_contact:
+  name: "Full Name"
+  email: "primary@example.com"
+  phone: "+91-XXXXXXXXXX"
+
+team_members:
+  - name: "Member 1 Full Name"
+    email: "member1@example.com"
+    role: "ML Engineer"
+
+github_repo: "https://github.com/YOUR_USERNAME/redrob-ranker"
+
+sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+
+compute:
+  platform: "Local Linux box"
+  cpu_cores: 4
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Ubuntu 24.04"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
+  pre_computation_time_minutes: 0
+
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Used Claude for architecture discussion, taxonomy design, and code
+  review/iteration on the scoring and reasoning modules. All scoring logic,
+  weight choices, and final code were reviewed and tested by the team.
+  No candidate data was sent to any hosted LLM during ranking (ranking
+  runs fully offline per submission_spec.md Section 3).
+
+methodology_summary: |
+  Rule-based multi-component ranker over structured candidate fields:
+  title/career-trajectory match (35%), JD-core-skill match with an
+  endorsement/duration trust multiplier against keyword-stuffing (20%),
+  experience-band fit with a pure-research penalty (15%), location/
+  relocation fit (10%), education/company-type signal (5%), all scaled
+  by a behavioral-activity multiplier from redrob_signals (recency,
+  response rate, open-to-work). A pre-pass flags ~80 honeypot-style
+  profile inconsistencies (yoe/summary mismatch, impossible career spans,
+  expert-with-zero-duration skills) and hard-caps their score. Reasoning
+  strings are generated from the same component breakdown that produced
+  the score, guaranteeing fact-grounding and rank-consistency. Runtime is
+  ~12 seconds for 100K candidates on CPU.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
